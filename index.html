@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator by Somesh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-color: black;
+            height: 100vh; /* Ensure full height for centering */
+        }
+
+        button {
+            height: 45px;
+            width: 54px;
+            margin-left: 25px;
+            margin-top: 25px;
+        }
+
+        .container {
+            border: 1px solid black;
+            width: 350px;
+            height: 425px;
+            display: flex;
+            flex-direction: column; /* Change to column to stack input and buttons */
+            align-items: center; /* Center children horizontally */
+            justify-content: space-evenly; /* Evenly distribute space */
+            position: relative; /* Use relative instead of absolute */
+        }
+
+        .special {
+            background-color: rgb(255, 98, 0);
+            font-size: 25px;
+        }
+
+        input {
+            border: none;
+            color: black;
+            background-color: white;
+            text-align: right; /* Keeps the text aligned to the right */
+            border-bottom: 1px solid black;
+            padding: 10px; /* Adjust padding for better appearance */
+            width: 90%; /* Use a percentage for responsive width */
+            font-size: larger;
+            height: 40px; /* Increase height for better usability */
+            margin-bottom: 20px; /* Add space below the input */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+            <button class="special">Ac</button>
+            <button class="special">C</button>
+            <button class="special">Del</button>
+            <button class="special">%</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="special">*</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="special">-</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="special">+</button>
+            <button class="special">/</button>
+            <button>0</button>
+            <button class="special">.</button>
+            <button class="special">=</button>
+        </div>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.buttons button'); // Fixed selector
+        buttons.forEach(button => {
+            button.addEventListener('click', handleButtonClick);
+        });
+    
+        function handleButtonClick(e) {
+            const value = e.target.innerText;
+            const display = document.getElementById('display');
+            if (value === '=') {
+                calculate(display.value);
+            } else if (value === "C") {
+                display.value = display.value.slice(0, -1); // Remove last character
+            } else if (value === "Ac") {
+                display.value = ""; // Clear entire input
+            } else if(value==="Del"){
+                display.value=display.value.slice(0,-1);
+            } else {
+                display.value += value; // Append value to input
+            }
+        }
+    
+        function calculate(expression) {
+            try {
+                const result = eval(expression); // Caution: eval can execute arbitrary code
+                document.getElementById('display').value = result;
+            } catch (error) {
+                document.getElementById('display').value = "Error"; // Handle errors
+            }
+        }
+    </script>
+    
+</body>
+</html>
